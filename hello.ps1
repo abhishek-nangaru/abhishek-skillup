@@ -1,1 +1,0 @@
-write-output "temporary file for testing"
