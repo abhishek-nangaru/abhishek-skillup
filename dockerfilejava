@@ -1,5 +1,5 @@
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY target/skillupjava.jar app.jar
-EXPOSE 8786
+EXPOSE 8800
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
