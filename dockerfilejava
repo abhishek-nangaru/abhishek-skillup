@@ -1,17 +1,15 @@
-# Use an official OpenJDK base image
 FROM openjdk:17-jdk-slim
 
-# Set working directory
+# Install Maven
+RUN apt-get update && apt-get install -y maven
+
 WORKDIR /app
 
-# Copy project files to the container
 COPY . .
 
-# Build the project using Maven
-RUN ./mvnw clean package -DskipTests
+# Build with maven installed inside the image
+RUN mvn clean package -DskipTests
 
-# Expose application port
 EXPOSE 8080
 
-# Run the JAR
 CMD ["java", "-jar", "target/skillupjava-0.0.1-SNAPSHOT.jar"]
