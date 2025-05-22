@@ -1,17 +1,20 @@
-# Use an official OpenJDK base image
+# Use OpenJDK base image
 FROM openjdk:17-jdk-slim
 
-# Set working directory
+# Install Maven inside the container
+RUN apt-get update && apt-get install -y maven
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy project files to the container
+# Copy everything from your local project into the container
 COPY . .
 
-# Build the project using Maven
-RUN ./mvnw clean package -DskipTests
+# Run Maven build (use system-installed Maven, not ./mvnw)
+RUN mvn clean package -DskipTests
 
-# Expose application port
+# Expose port (Spring Boot default)
 EXPOSE 8080
 
-# Run the JAR
+# Run the jar
 CMD ["java", "-jar", "target/skillupjava-0.0.1-SNAPSHOT.jar"]
